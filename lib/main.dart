@@ -30,6 +30,33 @@ class TodoListPageState extends State<TodoListPage> {
       body: Center(
         child: Text('リスト一覧画面'),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return TodoAddPage();
+          }));
+        },
+        child: Icon(Icons.add),
+      ),
     );
+  }
+}
+
+class TodoAddPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: FlatButton(
+          onPressed: (){
+            Navigator.of(context).pop();
+          },
+          child: Text('return'),
+        ),
+      ),
+    );
+
+    // TODO: implement build
+    throw UnimplementedError();
   }
 }
