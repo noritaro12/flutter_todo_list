@@ -24,22 +24,30 @@ class TodoListPage extends StatefulWidget {
 }
 
 class TodoListPageState extends State<TodoListPage> {
+  List<String> todoList = ["001"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title:  Text('リスト一覧')),
-      body: ListView(
-        children: [
-          Card(child:  ListTile(title: Text('ニシンを買う'))),
-          Card(child:  ListTile(title: Text('ニシンを買う'))),
-          Card(child:  ListTile(title: Text('ニシンを買う'))),
-        ],
+      appBar: AppBar(title: Text('リスト一覧')),
+      body: ListView.builder(
+        itemCount: todoList.length,
+        itemBuilder: (context, index) {
+          return Card(child: ListTile(title: Text(todoList[index])));
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        onPressed: () async {
+          final newListText = await Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) {
             return TodoAddPage();
           }));
+
+          if (newListText != null) {
+            setState(() {
+              todoList.add(newListText);
+            });
+          }
         },
         child: Icon(Icons.add),
       ),
@@ -47,36 +55,49 @@ class TodoListPageState extends State<TodoListPage> {
   }
 }
 
-class TodoAddPage extends StatelessWidget{
+class TodoAddPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => TodoAddPageState();
+}
+
+class TodoAddPageState extends State<TodoAddPage> {
+  String _text = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('リスト追加'),),
+      appBar: AppBar(
+        title: Text('リスト追加'),
+      ),
       body: Container(
         padding: EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(),
+            Text("input:${_text}"),
+            TextField(
+              onChanged: (String value1) {
+                setState(() {
+                  _text = value1;
+                });
+              },
+            ),
             RaisedButton(
-                onPressed: (){},
-                color: Colors.blueAccent,
-              child: Text('リスト追加',style: TextStyle(color: Colors.white)),
+              onPressed: () {
+                Navigator.of(context).pop(_text);
+              },
+              color: Colors.blueAccent,
+              child: Text('リスト追加', style: TextStyle(color: Colors.white)),
             ),
             FlatButton(
-              onPressed: (){Navigator.of(context).pop();},
-            child: Text('cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('cancel'),
             )
-
           ],
-
-
-
         ),
       ),
     );
-
-    // TODO: implement build
-    throw UnimplementedError();
   }
 }
