@@ -27,8 +27,13 @@ class TodoListPageState extends State<TodoListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('リスト一覧画面'),
+      appBar: AppBar(title:  Text('リスト一覧')),
+      body: ListView(
+        children: [
+          Card(child:  ListTile(title: Text('ニシンを買う'))),
+          Card(child:  ListTile(title: Text('ニシンを買う'))),
+          Card(child:  ListTile(title: Text('ニシンを買う'))),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -46,12 +51,27 @@ class TodoAddPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: FlatButton(
-          onPressed: (){
-            Navigator.of(context).pop();
-          },
-          child: Text('return'),
+      appBar: AppBar(title: Text('リスト追加'),),
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(),
+            RaisedButton(
+                onPressed: (){},
+                color: Colors.blueAccent,
+              child: Text('リスト追加',style: TextStyle(color: Colors.white)),
+            ),
+            FlatButton(
+              onPressed: (){Navigator.of(context).pop();},
+            child: Text('cancel'),
+            )
+
+          ],
+
+
+
         ),
       ),
     );
