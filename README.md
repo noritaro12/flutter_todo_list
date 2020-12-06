@@ -17,6 +17,9 @@ samples, guidance on mobile development, and a full API reference.
 
 
 _
+
+
+
 ⓪スプラッシュ画面のinitStateの先頭で端末IDをクリア
 
  SharedPreferences pref = await SharedPreferences.getInstance();
@@ -62,11 +65,11 @@ if( 端末ID.isEmpty)
 				端末IDをSaveする。⓪
 				
 				終了する。⓪
-				→エラー画面に移動する。（引数：登録成功）⓪----------------------------2
+				→エラー画面に移動する。（引数：登録成功 + terminalId + liceneKey）⓪----------------------------2
 			
 			else( 登録処理Api == Fail )
 				
-				→エラー画面に移動する。（引数：登録エラー）⓪②------------------------1
+				→エラー画面に移動する。（引数：登録エラー + terminalId + liceneKey ）⓪②------------------------1
 	
 else( 端末ID.Exist)
 
@@ -78,10 +81,10 @@ else( 端末ID.Exist)
 
 		if (セカンダリ認証Api == Fail) ④
 
-			→エラー画面に移動する。（引数：認証エラー）④⑤----------------------------3
+			→エラー画面に移動する。（引数：認証エラー + terminalId + liceneKey + status）④⑤-----------------------3
 
 	プライマリ死活確認API
-	
+
 	if( プライマリ死活確認Api == OK ) 
 	
 		→ブラウザ画面に移動する。（プライマリーサーバー）------------------------------4
